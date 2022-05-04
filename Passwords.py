@@ -1,5 +1,7 @@
 from random import randint
 import random
+import datetime
+from sqlite3 import Time
 Letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "v", "x", "y", "z"]
 Numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
 Capital_letter = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "V", "X", "Y", "Z"]
@@ -40,5 +42,7 @@ while True:
     c = input("Сохранить код?")
     if c == "да":
         file = open("PasswordsPY.txt", "w")
-        file.write(Password)
+        Date = datetime.datetime.now()
+        Time = Date.strftime("%H:%M:%S")
+        file.write(Password + " time: " + Time)
         file.close()
