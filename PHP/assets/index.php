@@ -3,6 +3,7 @@
   include("../app/database/db.php");
   include("../app/controllers/topics.php");
   $posts = selectAllFromPostsWithUsersOnIndex('posts', 'users');
+  $topTopic = selectTopTopicsFromPostsOnIndex('posts');
 ?>
 
 <!DOCTYPE html>
@@ -54,30 +55,26 @@
         data-bs-ride="carousel"
       >
         <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="images/Cat_1.jpg" class="d-block w-100" alt="..." />
-            <div
-              class="carousel-caption-hack carousel-caption d-none d-md-block"
-            >
-              <h5><a href="">First slide label</a></h5>
+          <?php foreach ($topTopic as $key => $post): ?>
+            <?php if($key == 0): ?>
+              <div class="carousel-item active">
+            <?php else: ?>
+              <div class="carousel-item">
+            <?php endif; ?>
+              <img src="<?=BASE_URL . 'images/posts/' . $post['img'] ?>" alt="<?=$post['img']; ?>" class="d-block w-100" />
+              <div
+                class="carousel-caption-hack carousel-caption d-none d-md-block"
+              >
+                <h5>
+                  <?php if(strlen($post['title']) > 40): ?>
+                    <a href="<?=BASE_URL . 'single.php?post=' . $post['id']; ?>"><?=mb_substr($post['title'], 0, 40, 'UTF-8') . '...'; ?></a>
+                  <?php else: ?>
+                    <a href="<?=BASE_URL . 'single.php?post=' . $post['id']; ?>"><?=$post['title']; ?></a>
+                  <?php endif; ?>
+                </h5>
+              </div>
             </div>
-          </div>
-          <div class="carousel-item">
-            <img src="images/Cat_2.jpg" class="d-block w-100" alt="..." />
-            <div
-              class="carousel-caption-hack carousel-caption d-none d-md-block"
-            >
-              <h5><a href="">First slide label</a></h5>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img src="images/Cat_3.jpg" class="d-block w-100" alt="..." />
-            <div
-              class="carousel-caption-hack carousel-caption d-none d-md-block"
-            >
-              <h5><a href="">First slide label</a></h5>
-            </div>
-          </div>
+          <?php endforeach; ?>
         </div>
         <button
           class="carousel-control-prev"
@@ -125,8 +122,8 @@
               <i class="far fa-user"> <?=$post['username']; ?></i>
               <i class="far fa-calendar"> <?=$post['created_date']; ?></i>
               <p class="preview-text">
-                <?php if(strlen($post['content']) > 170): ?>
-                  <a href="#"><?=mb_substr($post['content'], 0, 170, 'UTF-8') . '...'; ?></a>
+                <?php if(strlen($post['content']) > 150): ?>
+                  <a href="#"><?=mb_substr($post['content'], 0, 150, 'UTF-8') . '...'; ?></a>
                 <?php else: ?>
                   <a href="#"><?=$post['content']; ?></a>
                 <?php endif; ?>
