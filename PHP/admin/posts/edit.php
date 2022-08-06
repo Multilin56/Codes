@@ -96,7 +96,7 @@
                 >
               </div>
               <label for="category" class="form-label"
-                >Сново выберете категорию!</label
+                >Снова выберете категорию и картинку!</label
               >
               <select id="category" class="form-select mb-2" aria-label="Default select example" name="topic">
                 <?php foreach($topics as $key => $topic): ?>
