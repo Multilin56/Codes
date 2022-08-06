@@ -93,12 +93,10 @@ header ul li ul li a {
   text-align: center;
   padding: 30px 0px;
 }
-.carousel {
-  height: 850px;
-}
+.carousel,
 .carousel-inner,
 .corousel-item {
-  height: 850px;
+  height: 800px;
   border-radius: 5px;
 }
 .carousel-caption h5 {
