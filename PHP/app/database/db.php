@@ -145,10 +145,21 @@ function selectAllFromPostsWithUsers($table1, $table2){
     return $query->fetchAll();
 }
 
-// Выборка записей (posts) с автором в админку
+// Выборка записей (posts) с автором на главную
 function selectAllFromPostsWithUsersOnIndex($table1, $table2){
     global $pdo;
     $sql = "SELECT p.*, u.username FROM $table1 AS p JOIN $table2 AS u ON p.id_user = u.id WHERE p.status=1";
+
+    $query = $pdo->prepare($sql);
+    $query->execute();
+    dbCheckError($query);
+    return $query->fetchAll();
+}
+
+// Выборка записей (posts) с автором в админку
+function selectTopTopicsFromPostsOnIndex($table){
+    global $pdo;
+    $sql = "SELECT * FROM $table WHERE id_topic = 12";
 
     $query = $pdo->prepare($sql);
     $query->execute();
