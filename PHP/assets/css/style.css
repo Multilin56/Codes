@@ -150,6 +150,7 @@ header ul li ul li a {
 .main-content .post_text i {
   margin-right: 10px;
 }
+
 /*
     SIDEBAR
  */
@@ -181,6 +182,18 @@ header ul li ul li a {
 .sidebar .topics ul li a:hover {
   padding-left: 10px;
   transition: all 0.3s;
+}
+.main-content .search_text {
+  background: #ffffff;
+  padding: 20px;
+  padding-left: 30px;
+  border-radius: 3px;
+}
+.main-content .search_text a {
+  text-decoration: underline;
+}
+.main-content .search_text a:hover {
+  color: #008489;
 }
 /*
     FOOTER
