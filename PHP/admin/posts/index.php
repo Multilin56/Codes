@@ -65,7 +65,11 @@
           <?php foreach($postsAdm as $key => $post): ?>
             <div class="row post">
               <div class="id col-1"><?=$key + 1; ?></div>
-              <div class="title col-5"><?=mb_substr($post['title'], 0, 80, 'UTF-8') . '...'; ?></div>
+              <?php if(strlen($post['title']) > 80): ?>
+                <div class="title col-5"><?=mb_substr($post['title'], 0, 80, 'UTF-8') . '...'; ?></div>
+              <?php else: ?>
+                <div class="title col-5"><?=$post['title']; ?></div>
+              <?php endif; ?>
               <div class="author col-2"><?=$post['username']; ?></div>
               <div class="red col-1"><a href="edit.php?id=<?=$post['id']; ?>">Edit</a></div>
               <div class="del col-1"><a href="edit.php?del-id=<?=$post['id']; ?>">Delete</a></div>
