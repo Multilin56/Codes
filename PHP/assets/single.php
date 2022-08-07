@@ -2,6 +2,8 @@
   include("path.php");
   include("../app/database/db.php");
   include("../app/controllers/topics.php");
+  $post = selectPostFromPostsWithUsersOnSingle('posts', 'users', $_GET['post']);
+  $topic = selectOne('topics', ['id' => $post['id_topic']]);
 ?>
 
 <!DOCTYPE html>
@@ -46,41 +48,20 @@
     <div class="container">
       <div class="content row">
         <div class="main-content col-md-9 col-12">
-          <h2>
-            Заголовок какой-то конкретной статьи, пока о чем не понятно но надо
-            много текста что-бы посмотреть, как будет он в несколько строк...
-          </h2>
-
+          <h2 id="title"><?= $post['title']; ?></h2>
+          <label for="title">Категория: <strong><?= $topic['name']; ?></strong></label>
           <!-- Блок-начало карточек -->
 
           <div class="single_post row">
             <div class="img col-12">
-              <img src="images/Cat_4.jpg" alt="..." class="img-thumbnail" />
+              <img src="<?=BASE_URL . 'images/posts/' . $post['img'] ?>" alt="<?=$post['img']; ?>" class="img-thumbnail" />
             </div>
             <div class="single_info">
-              <i class="far fa-user"> Имя автора</i>
-              <i class="far fa-calendar"> Mar 11, 2019</i>
+              <i class="far fa-user"> <?=$post['username']; ?></i>
+              <i class="far fa-calendar"> <?=$post['created_date']; ?></i>
             </div>
             <div class="single_post_text col-12">
-              <h3>Заголовок</h3>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil,
-                facere inventore. Ipsum <a href="">rerum</a> at dolores.
-              </p>
-              <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Pariatur veritatis itaque tenetur rem repudiandae odio suscipit
-                laborum <a href="">maxime</a> consequuntur illum voluptatibus
-                labore quos asperiores, quia, totam fugiat
-                <a href="">officiis dolorum</a>
-                amet?
-              </p>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Adipisci tenetur fugiat autem placeat voluptatibus iure? Eius
-                cumque vero repellendus id.
-              </p>
-              <p>Lorem ipsum, dolor sit amet consectetur adipisicing.</p>
+              <?=$post['content']; ?>
             </div>
           </div>
 
@@ -88,31 +69,9 @@
         </div>
 
         <!-- Блок-поиск -->
+        
+        <?php include("../app/include/sidebar.php"); ?>
 
-        <div class="sidebar col-md-3 col-12">
-          <div class="section search">
-            <h3>Поиск</h3>
-            <form action="index.php" method="post">
-              <input
-                type="text"
-                name="search-ferm"
-                class="text-input"
-                placeholder="Введите искомое слово..."
-              />
-            </form>
-          </div>
-
-          <div class="section topics">
-            <h3>Категории</h3>
-            <ul>
-              <li><a href="#">Пушистые</a></li>
-              <li><a href="#">Игривые</a></li>
-              <li><a href="#">Отдыхающие</a></li>
-              <li><a href="#">Природа</a></li>
-              <li><a href="#">Необычные</a></li>
-            </ul>
-          </div>
-        </div>
       </div>
     </div>
 
