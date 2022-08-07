@@ -156,13 +156,53 @@ function selectAllFromPostsWithUsersOnIndex($table1, $table2){
     return $query->fetchAll();
 }
 
-// Выборка записей (posts) с автором в админку
-function selectTopTopicsFromPostsOnIndex($table){
+// Выборка записей (posts) с нужной категорией и автором на категори
+function selectAllFromPostsWithUsersAndCategoryOnCategory($table1, $table2, $id_topic){
     global $pdo;
-    $sql = "SELECT * FROM $table WHERE id_topic = 12";
+    $sql = "SELECT p.*, u.username FROM $table1 AS p JOIN $table2 AS u ON p.id_user = u.id WHERE p.status=1 AND p.id_topic=$id_topic";
 
     $query = $pdo->prepare($sql);
     $query->execute();
     dbCheckError($query);
     return $query->fetchAll();
+}
+
+// Выборка записей (posts) с автором в админку
+function selectTopTopicsFromPostsOnIndex($table){
+    global $pdo;
+    $sql = "SELECT * FROM $table WHERE status=1 AND id_topic = 12 ";
+
+    $query = $pdo->prepare($sql);
+    $query->execute();
+    dbCheckError($query);
+    return $query->fetchAll();
+}
+
+// Поиск по заголовку и содержимому (простой)
+function searchInTitileAndContent($text, $table1, $table2){
+    $text = trim(strip_tags(stripcslashes(htmlspecialchars($text))));
+    global $pdo;
+    $sql = "SELECT
+    p.*, u.username
+    FROM $table1 AS p
+    JOIN $table2 AS u
+    ON p.id_user = u.id
+    WHERE p.status=1
+    AND p.title LIKE '%$text%' OR p.content LIKE '%$text%'";
+
+    $query = $pdo->prepare($sql);
+    $query->execute();
+    dbCheckError($query);
+    return $query->fetchAll();
+}
+
+// Выборка записи (post) с автором на сингл
+function selectPostFromPostsWithUsersOnSingle($table1, $table2, $id){
+    global $pdo;
+    $sql = "SELECT p.*, u.username FROM $table1 AS p JOIN $table2 AS u ON p.id_user=u.id WHERE p.id=$id";
+
+    $query = $pdo->prepare($sql);
+    $query->execute();
+    dbCheckError($query);
+    return $query->fetch();
 }
