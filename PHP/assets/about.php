@@ -1,4 +1,9 @@
-<?php include("path.php"); ?>
+<?php
+  include("path.php");
+  include("../app/database/db.php");
+  include("../app/controllers/topics.php");
+  $posts = selectAllFromPostsWithUsersOnIndex('posts', 'users');
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -116,30 +121,9 @@
         </div>
 
         <!-- Блок-поиск -->
-        <div class="sidebar col-md-3 col-12">
-          <div class="section search">
-            <h3>Поиск</h3>
-            <form action="index.php" method="post">
-              <input
-                type="text"
-                name="search-ferm"
-                class="text-input"
-                placeholder="Введите искомое слово..."
-              />
-            </form>
-          </div>
+        
+        <?php include("../app/include/sidebar.php"); ?>
 
-          <div class="section topics">
-            <h3>Категории</h3>
-            <ul>
-              <li><a href="#">Пушистые</a></li>
-              <li><a href="#">Игривые</a></li>
-              <li><a href="#">Отдыхающие</a></li>
-              <li><a href="#">Природа</a></li>
-              <li><a href="#">Необычные</a></li>
-            </ul>
-          </div>
-        </div>
       </div>
     </div>
 
