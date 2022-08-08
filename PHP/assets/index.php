@@ -2,7 +2,13 @@
   include("path.php");
   include("../app/database/db.php");
   include("../app/controllers/topics.php");
-  $posts = selectAllFromPostsWithUsersOnIndex('posts', 'users');
+
+  $page = isset($_GET['page']) ? $_GET['page']: 1;
+  $limit = 5;
+  $offset = $limit * ($page - 1);
+  $total_pages = ceil(countRow('posts') / $limit);
+
+  $posts = selectAllFromPostsWithUsersOnIndex('posts', 'users', $limit, $offset);
   $topTopic = selectTopTopicsFromPostsOnIndex('posts');
 ?>
 
@@ -134,12 +140,13 @@
 
           <!-- Блок-конец карточек -->
 
+          <!-- Блок-пагинация -->
+          <?php include("../app/include/pagination.php"); ?>
+
         </div>
-
         <!-- Блок-поиск -->
-        
         <?php include("../app/include/sidebar.php"); ?>
-
+ 
       </div>
     </div>
 
