@@ -2,8 +2,23 @@
   include("path.php");
   include("../app/database/db.php");
   include("../app/controllers/topics.php");
-  $topic = selectOne('topics', ['id' => $_GET['id']]);
-  $posts = selectAllFromPostsWithUsersAndCategoryOnCategory('posts', 'users', $topic['id']);
+
+  $page = isset($_GET['page']) ? $_GET['page']: 1;
+  $limit = 7;
+  $offset = $limit * ($page - 1);
+
+  if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])){
+    $topic = selectOne('topics', ['id' => $_GET['id']]);
+    $more = $topic['id'];
+    $more2 = $topic['name'];
+    $total_pages = ceil(countRowCategory('posts', $more) / $limit);
+    $posts = selectAllFromPostsWithUsersAndCategoryOnCategory('posts', 'users', $more, $limit, $offset);
+  }else{
+    $more = $_GET['more'];
+    $more2 = $_GET['more2'];
+    $total_pages = ceil(countRowCategory('posts', $more) / $limit);
+    $posts = selectAllFromPostsWithUsersAndCategoryOnCategory('posts', 'users', $more, $limit, $offset);
+  }
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +64,7 @@
       <div class="content row">
         <div class="main-content col-md-9 col-12">
           <?php if($posts): ?>
-            <h2>Статьи с раздела: <strong><?=$topic['name']; ?></strong></h2>
+            <h2>Статьи с раздела: <strong><?=$more2; ?></strong></h2>
           <?php else: ?>
             <h2>Нет статей с данного раздела...</h2>
             <div class="search_text col-12">
@@ -93,10 +108,13 @@
 
           <!-- Блок-конец карточек -->
 
-        </div>
+          <!-- Блок-пагинация -->
+          <?php if($posts): ?>
+            <?php include("../app/include/pagination.php"); ?>
+          <?php endif; ?>
 
+        </div>
         <!-- Блок-поиск -->
-        
         <?php include("../app/include/sidebar.php"); ?>
 
       </div>
