@@ -2,7 +2,6 @@
   include("path.php");
   include("../app/database/db.php");
   include("../app/controllers/topics.php");
-  $posts = selectAllFromPostsWithUsersOnIndex('posts', 'users');
 ?>
 
 <!DOCTYPE html>
@@ -62,7 +61,7 @@
               </p>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Repellat dicta <a href="">ullam</a> quia voluptatem vel
+                Repellat dicta <a href="#">ullam</a> quia voluptatem vel
                 blanditiis commodi alias quos obcaecati! Itaque, ut vitae.
                 Excepturi laboriosam tempora eum quisquam consequuntur ipsa
                 laborum?
@@ -72,14 +71,14 @@
                 officia exercitationem tempora voluptate sequi qui!
               </p>
               <p>
-                Lorem ipsum, <a href="">dolor</a> sit amet consectetur
+                Lorem ipsum, <a href="#">dolor</a> sit amet consectetur
                 adipisicing elit. Temporibus, libero aliquam?
               </p>
               <p>
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                 Voluptas sequi delectus culpa, enim fugiat ipsum, omnis a
                 perferendis corporis odit, vero cupiditate? Beatae
-                <a href="">error labore</a>
+                <a href="#">error labore</a>
                 consequatur? Quas exercitationem voluptate deleniti at. Maiores
                 laboriosam odit quaerat delectus placeat suscipit.
               </p>
@@ -90,7 +89,7 @@
                 Voluptas animi illum necessitatibus tempora mollitia ab!
               </p>
               <p>
-                Lorem ipsum dolor <a href="">sit amet</a> consectetur
+                Lorem ipsum dolor <a href="#">sit amet</a> consectetur
                 adipisicing elit. Quibusdam facilis veritatis sapiente voluptas
                 officiis optio, minus at. Cum, vero. Modi aliquid enim excepturi
                 facere dolorum amet placeat laboriosam quas sunt!
@@ -100,7 +99,7 @@
                 atque at. Ea?
               </p>
               <p>
-                Lorem <a href="">ipsum</a> dolor sit amet, consectetur
+                Lorem <a href="#">ipsum</a> dolor sit amet, consectetur
                 adipisicing.
               </p>
               <h4>Заключительная часть...</h4>
@@ -118,10 +117,9 @@
           </div>
 
           <!-- Блок-конец карточек -->
-        </div>
 
+        </div>
         <!-- Блок-поиск -->
-        
         <?php include("../app/include/sidebar.php"); ?>
 
       </div>
