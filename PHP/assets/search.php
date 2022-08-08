@@ -2,8 +2,21 @@
   include("path.php");
   include("../app/database/db.php");
   include("../app/controllers/topics.php");
+
+  $page = isset($_GET['page']) ? $_GET['page']: 1;
+  $limit = 7;
+  $offset = $limit * ($page - 1);
+  
   if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search-ferm'])){
-    $posts = searchInTitileAndContent($_POST['search-ferm'], 'posts', 'users');
+    $more = $_POST['search-ferm'];
+    $total_pages = ceil(countRowSearch($more, 'posts') / $limit);
+    $posts = searchInTitileAndContent($more, 'posts', 'users', $limit, $offset);
+  }elseif($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['more'])){
+    $more = $_GET['more'];
+    $total_pages = ceil(countRowSearch($more, 'posts') / $limit);
+    $posts = searchInTitileAndContent($more, 'posts', 'users', $limit, $offset);
+  }else{
+    $posts = [];
   }
 ?>
 
@@ -94,10 +107,13 @@
 
           <!-- Блок-конец карточек -->
 
-        </div>
+          <!-- Блок-пагинация -->
+          <?php if($posts): ?>
+            <?php include("../app/include/pagination.php"); ?>
+          <?php endif; ?>
 
+        </div>
         <!-- Блок-поиск -->
-        
         <?php include("../app/include/sidebar.php"); ?>
 
       </div>
