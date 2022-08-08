@@ -66,10 +66,9 @@
           </div>
 
           <!-- Блок-конец карточек -->
+          
         </div>
-
         <!-- Блок-поиск -->
-        
         <?php include("../app/include/sidebar.php"); ?>
 
       </div>
