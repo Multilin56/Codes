@@ -146,9 +146,9 @@ function selectAllFromPostsWithUsers($table1, $table2){
 }
 
 // Выборка записей (posts) с автором на главную
-function selectAllFromPostsWithUsersOnIndex($table1, $table2){
+function selectAllFromPostsWithUsersOnIndex($table1, $table2, $limit, $offset){
     global $pdo;
-    $sql = "SELECT p.*, u.username FROM $table1 AS p JOIN $table2 AS u ON p.id_user = u.id WHERE p.status=1";
+    $sql = "SELECT p.*, u.username FROM $table1 AS p JOIN $table2 AS u ON p.id_user = u.id WHERE p.status=1 LIMIT $limit OFFSET $offset";
 
     $query = $pdo->prepare($sql);
     $query->execute();
@@ -157,9 +157,9 @@ function selectAllFromPostsWithUsersOnIndex($table1, $table2){
 }
 
 // Выборка записей (posts) с нужной категорией и автором на категори
-function selectAllFromPostsWithUsersAndCategoryOnCategory($table1, $table2, $id_topic){
+function selectAllFromPostsWithUsersAndCategoryOnCategory($table1, $table2, $id_topic, $limit, $offset){
     global $pdo;
-    $sql = "SELECT p.*, u.username FROM $table1 AS p JOIN $table2 AS u ON p.id_user = u.id WHERE p.status=1 AND p.id_topic=$id_topic";
+    $sql = "SELECT p.*, u.username FROM $table1 AS p JOIN $table2 AS u ON p.id_user = u.id WHERE p.status=1 AND p.id_topic=$id_topic LIMIT $limit OFFSET $offset";
 
     $query = $pdo->prepare($sql);
     $query->execute();
@@ -179,7 +179,7 @@ function selectTopTopicsFromPostsOnIndex($table){
 }
 
 // Поиск по заголовку и содержимому (простой)
-function searchInTitileAndContent($text, $table1, $table2){
+function searchInTitileAndContent($text, $table1, $table2, $limit, $offset){
     $text = trim(strip_tags(stripcslashes(htmlspecialchars($text))));
     global $pdo;
     $sql = "SELECT
@@ -188,7 +188,7 @@ function searchInTitileAndContent($text, $table1, $table2){
     JOIN $table2 AS u
     ON p.id_user = u.id
     WHERE p.status=1
-    AND p.title LIKE '%$text%' OR p.content LIKE '%$text%'";
+    AND p.title LIKE '%$text%' OR p.content LIKE '%$text%' LIMIT $limit OFFSET $offset";
 
     $query = $pdo->prepare($sql);
     $query->execute();
@@ -205,4 +205,37 @@ function selectPostFromPostsWithUsersOnSingle($table1, $table2, $id){
     $query->execute();
     dbCheckError($query);
     return $query->fetch();
+}
+
+// Подсчет всех опубликованых постов
+function countRow($table){
+    global $pdo;
+    $sql = "SELECT COUNT(*) FROM $table WHERE status=1";
+
+    $query = $pdo->prepare($sql);
+    $query->execute();
+    dbCheckError($query);
+    return $query->fetchColumn();
+}
+
+// Подсчет всех опубликованых постов подходящих под запрос (search)
+function countRowSearch($text, $table){
+    global $pdo;
+    $sql = "SELECT COUNT(*) FROM $table WHERE status=1 AND title LIKE '%$text%' OR content LIKE '%$text%'";
+
+    $query = $pdo->prepare($sql);
+    $query->execute();
+    dbCheckError($query);
+    return $query->fetchColumn();
+}
+
+// Подсчет всех опубликованых постов подходящих под категорию (category)
+function countRowCategory($table, $id){
+    global $pdo;
+    $sql = "SELECT COUNT(*) FROM $table WHERE status=1 AND id_topic=$id";
+
+    $query = $pdo->prepare($sql);
+    $query->execute();
+    dbCheckError($query);
+    return $query->fetchColumn();
 }
