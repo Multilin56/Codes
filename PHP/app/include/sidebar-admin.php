@@ -12,5 +12,8 @@
       <li>
         <a href="<?php echo ADMIN_URL . "users/"; ?>">Пользователи</a>
       </li>
+      <li>
+        <a href="<?php echo ADMIN_URL . "comments/"; ?>">Комментарии</a>
+      </li>
     </ul>
   </div>
