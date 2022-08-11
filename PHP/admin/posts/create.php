@@ -35,7 +35,7 @@
       rel="stylesheet"
     />
 
-    <title>index.php</title>
+    <title>create.php</title>
   </head>
   <body>
     <!--  Блок-начало  -->
