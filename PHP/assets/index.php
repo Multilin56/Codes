@@ -110,7 +110,7 @@
         <div class="main-content col-md-9 col-12">
           <h2>Последние публикации</h2>
 
-          <!-- Блок-начало карточек -->
+          <!-- Начало карточек -->
 
           <?php foreach ($posts as $post): ?>
           <div class="post row">
@@ -138,7 +138,7 @@
           </div>
           <?php endforeach; ?>
 
-          <!-- Блок-конец карточек -->
+          <!-- Конец карточек -->
 
           <!-- Блок-пагинация -->
           <?php include("../app/include/pagination.php"); ?>
