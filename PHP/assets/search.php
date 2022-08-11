@@ -7,6 +7,7 @@
   $limit = 7;
   $offset = $limit * ($page - 1);
   
+  // используй лучше скрытый input :(
   if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search-ferm'])){
     $more = $_POST['search-ferm'];
     $total_pages = ceil(countRowSearch($more, 'posts') / $limit);
@@ -51,7 +52,7 @@
       rel="stylesheet"
     />
 
-    <title>index.php</title>
+    <title>search.php</title>
   </head>
   <body>
     <!--  Блок-начало  -->
@@ -77,7 +78,7 @@
             </div>
           <?php endif; ?>
 
-          <!-- Блок-начало карточек -->
+          <!-- Начало карточек -->
 
           <?php foreach ($posts as $post): ?>
           <div class="post row">
@@ -105,7 +106,7 @@
           </div>
           <?php endforeach; ?>
 
-          <!-- Блок-конец карточек -->
+          <!-- Конец карточек -->
 
           <!-- Блок-пагинация -->
           <?php if($posts): ?>
