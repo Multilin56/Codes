@@ -6,7 +6,7 @@
   $page = isset($_GET['page']) ? $_GET['page']: 1;
   $limit = 7;
   $offset = $limit * ($page - 1);
-
+  // используй лучше скрытый input :(
   if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])){
     $topic = selectOne('topics', ['id' => $_GET['id']]);
     $more = $topic['id'];
@@ -52,7 +52,7 @@
       rel="stylesheet"
     />
 
-    <title>index.php</title>
+    <title>category.php</title>
   </head>
   <body>
     <!--  Блок-начало  -->
@@ -78,7 +78,7 @@
             </div>
           <?php endif; ?>
 
-          <!-- Блок-начало карточек -->
+          <!-- Начало карточек -->
 
           <?php foreach ($posts as $post): ?>
           <div class="post row">
@@ -106,7 +106,7 @@
           </div>
           <?php endforeach; ?>
 
-          <!-- Блок-конец карточек -->
+          <!-- Конец карточек -->
 
           <!-- Блок-пагинация -->
           <?php if($posts): ?>
