@@ -2,6 +2,7 @@
   include("path.php");
   include("../app/database/db.php");
   include("../app/controllers/topics.php");
+  include("../app/controllers/commentaries.php");
   $post = selectPostFromPostsWithUsersOnSingle('posts', 'users', $_GET['post']);
   $topic = selectOne('topics', ['id' => $post['id_topic']]);
 ?>
@@ -50,7 +51,7 @@
         <div class="main-content col-md-9 col-12">
           <h2 id="title"><?= $post['title']; ?></h2>
           <label for="title">Категория: <strong><?= $topic['name']; ?></strong></label>
-          <!-- Блок-начало карточек -->
+          <!-- Начало карточек -->
 
           <div class="single_post row">
             <div class="img col-12">
@@ -63,11 +64,16 @@
             <div class="single_post_text col-12">
               <?=$post['content']; ?>
             </div>
+            
+            <!-- Блок-коментарии -->
+            <?php include("../app/include/comments.php"); ?>
+
           </div>
 
-          <!-- Блок-конец карточек -->
+          <!-- Конец карточек -->
           
         </div>
+
         <!-- Блок-поиск -->
         <?php include("../app/include/sidebar.php"); ?>
 
