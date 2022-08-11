@@ -35,7 +35,7 @@
       rel="stylesheet"
     />
 
-    <title>index.php</title>
+    <title>edit.php</title>
   </head>
   <body>
     <!--  Блок-начало  -->
