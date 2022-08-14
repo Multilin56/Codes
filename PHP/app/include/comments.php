@@ -11,7 +11,7 @@
       <textarea name="comment" class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
     </div>
     <div class="col-12">
-        <button tupe="submit" name="goComment" class="btn btn-primary">Отправить</button>
+      <button type="submit" name="goComment" class="btn btn-primary">Отправить</button>
     </div>
   </form>
   <div class="row all-comments">
