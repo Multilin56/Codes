@@ -2,7 +2,9 @@
 
 $commentsAdm = selectAll('comments');
 
-$page = $_GET['post'];
+if(isset($_GET['post'])){
+    $page = $_GET['post'];
+}
 $email = '';
 $comment = '';
 $msg = [];
@@ -37,7 +39,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['goComment'])){
 }else{
     $email = '';
     $comment = '';
-    $comments = selectAll('comments', ['page' => $page, 'status' => 1]);
+    if(isset($_GET['post'])){
+        $comments = selectAll('comments', ['page' => $page, 'status' => 1]);
+    }
 }
 
 // Апдейт комментария
