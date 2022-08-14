@@ -1,5 +1,3 @@
-<?php include("../../assets/path.php"); ?>
-
 <div class="row">
   <div class="sidebar col-3">
     <ul>
